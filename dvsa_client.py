@@ -16,14 +16,15 @@ def retry(max_attempts):
         return wrapper
     return decorator
 
-
-@retry
+# test
 class DVSA_API_Client():
     def __init__(self,timeout:int, api_key:str, access_token:str):
         self.base_url = 'https://history.mot.api.gov.uk/v1/trade/vehicles/registration/'
         self.timeout = timeout
         self.api_key = api_key
         self.access_token = access_token
+
+    @retry(max_attempts=3)
     def get_mot_history(self,registration):
         path = self.base_url + registration
         headers = {
